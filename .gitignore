@@ -1,0 +1,33 @@
+# VSCode
+# .vscode/   
+
+
+# npm
+node_modules/
+dist/
+package-lock.json
+
+# build and dev
+main.js
+main.js.map
+
+
+# obsidian
+.obsidian/
+
+# Plugin related
+data.json
+stopwords.json
+AIcache/
+
+# General
+.DS_Store
+*.tgz
+*.tar.gz
+.env
+*.log
+*OLD*
+*NO*
+*TODO*
+*TEMP*
+*.vsix

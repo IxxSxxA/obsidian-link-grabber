@@ -1,6 +1,6 @@
 {
   "name": "link-grabber",
-  "version": "0.0.0",
+  "version": "2.0.1",
   "description": "Suggest links while you type. Based on Obsidian's native search and supercharged with AI semantic recognition.",
   "main": "main.ts",
   "scripts": {

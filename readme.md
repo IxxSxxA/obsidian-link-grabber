@@ -64,7 +64,7 @@ Using the quantized `multilingual-e5-small` model for efficient **Multilingual S
 
 ### Manual Installation
 1. Download the latest release from GitHub
-2. Extract to your vault's plugins folder: `{vault}/.obsidian/plugins/link-grabber/`
+2. Extract to your vault's plugins folder: `{vault}/.obsidian/plugins/obsidian-link-grabber/`
 3. Reload Obsidian
 4. Enable the plugin in Community Plugins
 

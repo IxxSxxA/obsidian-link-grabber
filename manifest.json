@@ -1,7 +1,7 @@
 {
     "id": "link-grabber",
     "name": "Link Grabber",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "minAppVersion": "0.16.0",
     "description": "Suggest links while you type. Fast Obsidian's native search withprovides intelligent completion. Semantic AI powers",
     "author": "IxxSxxA",

@@ -47,7 +47,12 @@ Using the quantized `multilingual-e5-small` model for efficient **Multilingual S
 - **Sidebar assistant** for focused writing sessions
 - **Multilingual support** - Understands content in multiple languages
 
-![Settings Interface](docs/settings.png) *Suggestion: Add screenshot of the settings tab showing both inline and AI sections*
+![Inline search](PNGs/inlinePanel.png)
+
+![Stop words](PNGs/stopwordsPanel.png)
+
+![AI similarity](PNGs/AIsemanticPanel.png)
+
 
 ## 📦 Installation
 

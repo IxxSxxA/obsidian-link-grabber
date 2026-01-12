@@ -176,11 +176,11 @@ Steps to reproduce
 
 ### 🔒 Privacy & Security | Your data never leaves your machine.
 
-✅ All AI models stored locally in plugin folder
-✅ No internet calls after first initial download
-✅ No analytics or telemetry
-✅ All processing via web workers in browser
-✅ Open source - audit the code yourself
+- ✅ All AI models stored locally in plugin folder
+- ✅ No internet calls after first initial download
+- ✅ No analytics or telemetry
+- ✅ All processing via web workers in browser
+- ✅ Open source - audit the code yourself
 
 
 ## ⚠️ Important Disclaimer
@@ -194,7 +194,8 @@ Steps to reproduce
 
 ## 📄 License
 
-GNU GENERAL PUBLIC LICENSE v3 - see [LICENSE](LICENSE) file for details.
+- GNU GENERAL PUBLIC LICENSE v3 - see [LICENSE](LICENSE) file for details.
+- NOTICE.md discalaimers
 
 **Additional understanding:**
 - Free for personal and community use
@@ -209,10 +210,6 @@ This plugin was developed as a personal challenge and is provided for free for t
 
 If it helps your workflow, consider:
 
-☕ Buying me a coffee
-Support further development via Lightning Network:
-watermelon@lnmarkets.com
-
 ⭐ Star the repository
 Help others discover the plugin!
 
@@ -225,24 +222,5 @@ What would make Link Grabber even better?
 Made for the Obsidian community.
 Because writing should connect ideas, not interrupt them.
 
-
-
-## Note sugli screenshot suggeriti:
-
-Ho indicato due punti per screenshot/GIF:
-
-1. **`docs/demo.gif`** - Una breve animazione che mostra:
-   - Digitare testo in una nota
-   - Apparire il popup con suggerimenti inline
-   - Selezione e inserimento di un link
-   - Apertura della sidebar AI con suggerimenti semantici
-
-2. **`docs/settings.png`** - Screenshot della tab delle impostazioni che mostra:
-   - Sezione "Inline Search" con tutti i toggle
-   - Sezione "AI Semantic Search" con le statistiche
-   - Pulsanti di reset
-
-## Pulsante "Buy me a coffee":
-
-Ho incluso sia il formato testuale per Lightning Network che puoi arricchire con un badge se vuoi:
+☕ Support further development via Lightning Network: watermelon@lnmarkets.com
 

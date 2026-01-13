@@ -2,14 +2,14 @@
 
 *A technical experiment in making Obsidian smarter*
 
-### Anonymous Free Open Source Project • No Tracking • Community Driven
+**Anonymous Free Open Source Project • No Tracking • Community Driven**
 
 ![Obsidian Plugin](https://img.shields.io/badge/Obsidian-Plugin-7C3AED)
-![Version](https://img.shields.io/badge/Version-1.2.0-blue)
+![Version](https://img.shields.io/badge/Version-2.0.1-blue)
 ![Privacy](https://img.shields.io/badge/Privacy-100%25_local-forestgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-> Smart linking assistant that suggests relevant notes as you type - with AI-powered semantic search
+> Smart linking assistant that suggests relevant notes as you type supercharged by AI-powered semantic search
 
 **Link Grabber** is a powerful Obsidian plugin born from a personal challenge to push the boundaries of what's possible with Obsidian plugins. It combines lightning-fast inline search with sophisticated AI semantic analysis - all running locally on your machine.
 
@@ -18,26 +18,27 @@
 
 Writing in Obsidian should be frictionless. Instead of interrupting your flow to search for related notes, Link Grabber automatically suggests relevant links **while you type**. It's like having a research assistant that understands both your words and their meaning.
 
-### 🎯 The Personal Challenge
+## 🎯 A Personal Challenge
 
 This project started as a technical exploration to solve real problems:
 
-- Overcoming Obsidian's limitations to implement real-time **Inline Search** that displays results in a popup as you type, using Obsidian's native search capabilities in innovative ways.
+- Overcoming Obsidian's limitations to implement real-time **Inline Search** that displays results in a popup as you type using Obsidian's native search capabilities in innovative ways.
 
-- Successfully storing transformers.js and AI models directly in the plugin folder **Bypassing Obsidian's Cache**
-Implementing **Non-blocking Architecture** web workers so AI processing never interrupts your workflow
-Using the quantized `multilingual-e5-small` model for efficient **Multilingual Support** cross-language understanding while keeping model size reasonable (~118MB)
+- Successfully storing Xenova transformers.js and AI models directly in the plugin folder **Bypassing Obsidian's Cache**.
+Implementing **Non-blocking Architecture** web workers so AI processing never interrupts your workflow.
+Using the `quantized multilingual-e5-small` model for efficient **Multilingual Support** cross-language understanding while keeping model size reasonable (~118MB)
 
 ## 🚀 Features
 
-#### 🔍 **Instant Inline Search**
+🔍 **Instant Inline Search**
 - **Real-time suggestions** as you type anywhere in your notes
 - **Multiple search scopes**: Titles, Headings, Tags & Frontmatter
 - **Stop words filtering** for cleaner results
 - **Performance optimized** - works instantly even with large vaults
 - **Current note exclusion** to avoid self-referencing
 
-### 🧠 **AI Semantic Search** (Local & Private)
+🧠 **AI Semantic Search** (Local & Private)
+
 - **100% local AI** - No data leaves your computer
 - **Three indexing levels** for balance of speed vs depth:
   - 🔹 **Titles** (Lightning fast)
@@ -47,9 +48,19 @@ Using the quantized `multilingual-e5-small` model for efficient **Multilingual S
 - **Sidebar assistant** for focused writing sessions
 - **Multilingual support** - Understands content in multiple languages
 
-![Inline search](PNGs/inlinePanel.png)
+#### 🛠️ Technical Architecture
 
-![Stop words](PNGs/stopwordsPanel.png)
+- ✅ Web Worker Implementation - AI never blocks UI
+- ✅ Local Model Storage - Models in plugin folder, not cache
+- ✅ Efficient Indexing - Progressive updates, no full rescans
+- ✅ Memory Management - Automatic cleanup, no leaks
+- ✅ Error Recovery - Graceful degradation if AI unavailable
+
+
+#### 📸 Screenshots
+![Inline search](PNGs/InlinePanel.png)
+
+![Stop words](PNGs/StopwordsPanel.png)
 
 ![AI similarity](PNGs/AIsemanticPanel.png)
 
@@ -98,15 +109,7 @@ Using the quantized `multilingual-e5-small` model for efficient **Multilingual S
 
 
 
-## 🛠️ Technical Architecture
 
-Key Technical Achievements:
-
-✅ Web Worker Implementation - AI never blocks UI
-✅ Local Model Storage - Models in plugin folder, not cache
-✅ Efficient Indexing - Progressive updates, no full rescans
-✅ Memory Management - Automatic cleanup, no leaks
-✅ Error Recovery - Graceful degradation if AI unavailable
 
 ## 🎮 Usage Examples
 
@@ -140,7 +143,7 @@ Writing: "The implications of quantum computing on cryptography":
 🗑️ AI Reset Database
 
 
-🤝 Contributing
+### 🤝 Contributing
 This project welcomes contributions! Whether you're fixing bugs, improving documentation, or suggesting features:
 
 - Fork the repository
@@ -150,8 +153,7 @@ This project welcomes contributions! Whether you're fixing bugs, improving docum
 - Open a pull request
 
 
-Development Setup
-
+**Development Setup**
 ```bash
 git clone https://github.com/yourusername/obsidian-link-grabber.git
 cd obsidian-link-grabber
@@ -160,8 +162,7 @@ npm run dev
 ```
 
 
-
-🐛 Troubleshooting
+### 🐛 Troubleshooting
 
 - AI not working -> Click "Enable AI" in settings
 - No suggestions -> Increase minimum text length
@@ -220,7 +221,7 @@ Help improve stability and features
 What would make Link Grabber even better?
 
 Made for the Obsidian community.
-Because writing should connect ideas, not interrupt them.
+Because writing should connect ideas. Not interrupt them.
 
-☕ Support further development via Lightning Network: watermelon@lnmarkets.com
+☕ Support further development via LN Lightning Network: watermelon@lnmarkets.com
 

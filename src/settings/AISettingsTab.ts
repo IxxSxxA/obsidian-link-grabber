@@ -358,6 +358,7 @@ export class AISettingsTab {
 
         const descDiv = containerEl.createDiv({ cls: 'setting-item-description' });
         descDiv.style.marginTop = '8px';
+        descDiv.style.marginBottom = '8px';
         descDiv.style.padding = '8px';
         descDiv.style.background = 'var(--background-secondary)';
         descDiv.style.borderRadius = '4px';
@@ -501,7 +502,6 @@ export class AISettingsTab {
     // ═══════════════════════════════════════════════════════════════════════
 
     private async handleEnableIndexing(type: 'Titles' | 'Headings' | 'Content'): Promise<void> {
-        // ✅ Use service to check state
         const stats = this.service.getStats();
 
         if (stats.isIndexing) {
@@ -515,14 +515,18 @@ export class AISettingsTab {
 
         Logger.log(`🔄 [AISettingsTab] Enabling ${type}`);
 
-        // ✅ Use service for enable operation
         try {
+
             await this.service.enableIndexing(type);
 
+            // ✅ Trigger refresh UI
             this.app.workspace.trigger('link-grabber:ai-settings-changed');
+
+            // ✅ Refresh UI
             await this.refresh();
 
-            Logger.log(`✅ [AISettingsTab] ${type} indexing completed`);
+            Logger.log(`✅ [AISettingsTab] ${type} indexing started`);
+
         } catch (err) {
             Logger.error(`❌ [AISettingsTab] Failed to enable ${type}:`, err);
             new Notice(`❌ Failed to enable ${type} indexing`);

@@ -6,7 +6,7 @@
     "description": "Suggest links while you type. Fast Obsidian's native search withprovides intelligent completion. Semantic AI powers",
     "author": "IxxSxxA",
     "authorUrl": "https://github.com/IxxSxxA",
-    "fundingUrl": "lightning:watermelon@lnmarkets.com",
+    "fundingUrl": "Lightning Network LN: watermelon@lnmarkets.com",
     "isDesktopOnly": true,
     "permissions": [
         "allowFileSystemAccess"

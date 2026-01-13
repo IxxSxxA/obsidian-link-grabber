@@ -22,6 +22,7 @@ import { Logger } from '../utils/Logger';
  * - Progress callbacks for UI
  */
 
+
 export class AISettingsService {
     constructor(
         private app: App,
@@ -129,8 +130,10 @@ export class AISettingsService {
     // INDEXING OPERATIONS
     // ═══════════════════════════════════════════════════════════════════════
 
+
     /**
      * Enable indexing for a specific type and start indexing
+     * Returns immediately after starting, doesn't wait for completion
      */
     async enableIndexing(type: 'Titles' | 'Headings' | 'Content'): Promise<void> {
         Logger.log(`📄 [AISettingsService] Enabling ${type} indexing`);
@@ -156,10 +159,17 @@ export class AISettingsService {
 
         await this.settingsManager.updateSettings(update);
 
-        // Start indexing
-        await this.reindexVault(type);
+        // ✅ FIX: Start indexing asynchronously (don't await)
+        this.reindexVault(type)
+            .then(() => {
+                Logger.log(`✅ [AISettingsService] ${type} indexing completed`);
+            })
+            .catch((err) => {
+                Logger.error(`❌ [AISettingsService] ${type} indexing failed:`, err);
+            });
 
-        Logger.log(`✅ [AISettingsService] ${type} indexing enabled and completed`);
+        // ✅ Return immediately - UI can update now
+        Logger.log(`✅ [AISettingsService] ${type} indexing started`);
     }
 
     /**

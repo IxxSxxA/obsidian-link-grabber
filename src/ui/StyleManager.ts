@@ -15,9 +15,9 @@ export class StyleManager {
 
             /* Level 1 - Main sections (SettingTabManager) */
             .link-grabber-section-main {
-                // margin-top: 30px !important;
-                // margin-bottom: 15px !important;
-                padding-bottom: 8px;
+                margin-top: 30px !important;
+                margin-bottom: 15px !important;
+                padding-bottom: 8px !important;
                 border-bottom: 2px solid var(--background-modifier-border);
                 font-size: 1.2em;
                 font-weight: 600;
@@ -25,9 +25,9 @@ export class StyleManager {
 
             /* Level 2 - Sub-sections (AISettingsTab, InlineSettingsTab subsections) */
             .link-grabber-section-sub {
-                // margin-top: 20px !important;
-                // margin-bottom: 10px !important;
-                // padding-bottom: 6px;
+                margin-top: 20px !important;
+                margin-bottom: 10px !important;
+                padding-bottom: 6px;
                 // border-bottom: 1px solid var(--background-modifier-border);
                 font-size: 1em;
                 font-weight: 500;
@@ -35,8 +35,8 @@ export class StyleManager {
 
             /* Level 3 - Minor sections (optional) */
             .link-grabber-section-minor {
-                // margin-top: 15px !important;
-                // margin-bottom: 8px !important;
+                margin-top: 15px !important;
+                margin-bottom: 8px !important;
                 font-size: 0.9em;
                 font-weight: 600;
                 color: var(--text-muted);

@@ -119,16 +119,16 @@ export class InlineSettingsTab {
 
         const howToList = instructionsDiv.createEl('ul');
         howToList.createEl('li', {
-            text: 'Use .TXT files with one word per line (GitHub, Pastebin, etc.)'
+            text: 'Use .TXT file with one word per line (GitHub, Pastebin, etc.)'
         });
         howToList.createEl('li', {
-            text: 'For GitHub: use RAW file URLs (click "Raw" button on GitHub)'
+            text: 'For GitHub use RAW file URL (click "Raw" button on GitHub)'
+        });
+        howToList.createEl('li', {
+            text: 'Do not use regular GitHub page URL (will cause CORS errors)'
         });
         howToList.createEl('li', {
             text: 'Valid URL example: https://raw.githubusercontent.com/stopwords-iso/stopwords-en/master/stopwords-en.txt'
-        });
-        howToList.createEl('li', {
-            text: 'DO NOT use regular GitHub page URLs (will cause CORS errors)'
         });
         howToList.createEl('li', {
             text: 'To delete a vocabulary just delete its URL from the textarea below and press Update Cache'

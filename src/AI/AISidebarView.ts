@@ -261,6 +261,7 @@ export class AISidebarView extends ItemView {
     }
   }
 
+
   private async updateSuggestions(): Promise<void> {
 
     // Check if AI is ready
@@ -369,6 +370,21 @@ export class AISidebarView extends ItemView {
     return true;
   }
 
+  private truncateExcerpt(excerpt: string, maxLength: number = 150): string {
+    if (excerpt.length <= maxLength) {
+      return excerpt;
+    }
+
+    const truncated = excerpt.substring(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(' ');
+
+    if (lastSpace > maxLength * 0.8) {
+      return truncated.substring(0, lastSpace) + '...';
+    }
+
+    return truncated + '...';
+  }
+
   // ════════════════════════════════════════════════════════════════════════════
   // RENDER SUGGESTIONS LIST WITH SOURCE BADGES
   // ════════════════════════════════════════════════════════════════════════════
@@ -456,7 +472,7 @@ export class AISidebarView extends ItemView {
       // EXCERPT
       const excerptEl = content.createDiv({ cls: 'ai-suggestion-excerpt' });
       excerptEl.createEl('small', {
-        text: sug.excerpt + '...'
+        text: this.truncateExcerpt(sug.excerpt)
       });
       excerptEl.style.cursor = 'default';
 

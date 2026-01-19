@@ -188,10 +188,6 @@ Steps to reproduce
 - **Personal/Community use** - Primarily intended for individual users
 - **Not for mission-critical systems** - Do not use in enterprise without thorough testing
 
-## 📄 License
-
-- GNU GENERAL PUBLIC LICENSE v3 - see [LICENSE](LICENSE) file for details.
-- NOTICE.md discalaimers
 
 **Additional understanding:**
 - Free for personal and community use

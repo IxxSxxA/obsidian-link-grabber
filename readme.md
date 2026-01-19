@@ -67,17 +67,12 @@ Using the `quantized multilingual-e5-small` model for efficient **Multilingual S
 
 ## 📦 Installation
 
-### From Obsidian Community Plugins
-1. Open Obsidian Settings → Community Plugins
-2. Disable Safe Mode
-3. Click "Browse" and search for "Link Grabber"
-4. Click Install, then Enable
-
 ### Manual Installation
 1. Download the latest release from GitHub
 2. Extract to your vault's plugins folder: `{vault}/.obsidian/plugins/obsidian-link-grabber/`
-3. Reload Obsidian
-4. Enable the plugin in Community Plugins
+3. npm run dev
+4. Reload Obsidian
+5. Enable the plugin in Community Plugins
 
 ## ⚙️ Configuration
 

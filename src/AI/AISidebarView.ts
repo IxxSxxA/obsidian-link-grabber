@@ -23,6 +23,7 @@ export class AISidebarView extends ItemView {
   private updateTimeout: NodeJS.Timeout | null = null;
   private lastSuggestions: SearchResult[] = [];
   private lastActiveEditor: any = null;
+  private lastAnalyzedContent: string = '';
 
   constructor(
     leaf: WorkspaceLeaf,
@@ -204,16 +205,6 @@ export class AISidebarView extends ItemView {
     });
   }
 
-  private scheduleUpdate(): void {
-    if (this.updateTimeout) {
-      clearTimeout(this.updateTimeout);
-    }
-
-    this.updateTimeout = setTimeout(() => {
-      Logger.log('⏰ [AISidebarView] Update scheduled - executing now');
-      this.updateSuggestions();
-    }, 2000);
-  }
 
 
   // Check if no notes are open
@@ -262,19 +253,26 @@ export class AISidebarView extends ItemView {
   }
 
 
-  private async updateSuggestions(): Promise<void> {
+  private scheduleUpdate(): void {
+    if (this.updateTimeout) {
+      clearTimeout(this.updateTimeout);
+    }
 
-    // Check if AI is ready
+    this.updateTimeout = setTimeout(() => {
+      Logger.log('⏰ [AISidebarView] Update scheduled - executing now');
+      this.updateSuggestions();
+    }, 2000);
+  }
+
+  private async updateSuggestions(): Promise<void> {
     if (!this.aiService.isReady()) {
       this.showPlaceholder('⚙️ AI model loading...');
       return;
     }
 
-    // 🔥 FIX: Get active file before using this.currentFile
     const { file, editor } = this.getCurrentFile();
     Logger.log('🔍 [AISidebarView] updateSuggestions called for:', file?.path);
 
-    // 🔥 CASO 1: No file active
     if (!file) {
       const hasOpenNotes = this.app.workspace.getLeavesOfType('markdown').length > 0;
       this.showPlaceholder(hasOpenNotes
@@ -284,17 +282,15 @@ export class AISidebarView extends ItemView {
       return;
     }
 
-    // 🔥 Update before using this.currentFile
     this.currentFile = file;
     this.lastActiveEditor = editor;
 
     Logger.log('🔄 [AISidebarView] Updating suggestions for:', this.currentFile.path);
 
-    // ✅ CHECK ANY DB IS ON
     if (!this.settings.aiIndexTitles &&
       !this.settings.aiIndexHeadings &&
       !this.settings.aiIndexContent) {
-      this.showPlaceholder('🔍 Enable at least one Index & Search in settings');
+      this.showPlaceholder('📊 Enable at least one Index & Search in settings');
       return;
     }
 
@@ -308,9 +304,24 @@ export class AISidebarView extends ItemView {
       const content = await this.app.vault.cachedRead(this.currentFile);
       Logger.log('✅ [AISidebarView] Content loaded -> length is:', content.length);
 
+
       if (content.length < this.settings.aiMinTextLength) {
         this.showPlaceholder(`Write more content (min ${this.settings.aiMinTextLength} characters)...`);
+        this.lastAnalyzedContent = ''; // Reset quando sotto il minimo
         return;
+      }
+
+
+      if (this.lastAnalyzedContent) {
+        const contentDiff = Math.abs(content.length - this.lastAnalyzedContent.length);
+        const minChangeThreshold = this.settings.aiMinTextLength;
+
+        if (contentDiff < minChangeThreshold) {
+          Logger.log(`⏭️ [AISidebarView] Content change too small (${contentDiff} chars), skipping update`);
+          return;
+        }
+
+        Logger.log(`✅ [AISidebarView] Content changed enough (${contentDiff} chars), updating...`);
       }
 
       const embedding = await this.aiService.generateEmbedding(content, 'query');
@@ -331,6 +342,8 @@ export class AISidebarView extends ItemView {
         return;
       }
 
+
+      this.lastAnalyzedContent = content;
       this.lastSuggestions = similar;
       this.renderSuggestionsList(similar);
 
@@ -346,7 +359,10 @@ export class AISidebarView extends ItemView {
     this.currentFile = null;
     this.lastActiveEditor = null;
     this.lastSuggestions = [];
+    this.lastAnalyzedContent = '';
   }
+
+
 
   private areSuggestionsSame(
     newSuggestions: SearchResult[],
@@ -371,11 +387,27 @@ export class AISidebarView extends ItemView {
   }
 
   private truncateExcerpt(excerpt: string, maxLength: number = 150): string {
-    if (excerpt.length <= maxLength) {
-      return excerpt;
+    // ✅ Rimuovi YAML frontmatter se presente
+    let cleanExcerpt = excerpt;
+
+    // Rimuovi frontmatter YAML (tutto tra --- e ---)
+    cleanExcerpt = cleanExcerpt.replace(/^---[\s\S]*?---\s*/m, '');
+
+    // Rimuovi properties inline comuni
+    cleanExcerpt = cleanExcerpt
+      .replace(/^tags?:\s*\[.*?\]\s*/gim, '')
+      .replace(/^aliases?:\s*\[.*?\]\s*/gim, '')
+      .replace(/^created?:\s*.*$/gim, '')
+      .replace(/^modified?:\s*.*$/gim, '');
+
+    // Rimuovi linee vuote multiple
+    cleanExcerpt = cleanExcerpt.replace(/\n\s*\n/g, '\n').trim();
+
+    if (cleanExcerpt.length <= maxLength) {
+      return cleanExcerpt;
     }
 
-    const truncated = excerpt.substring(0, maxLength);
+    const truncated = cleanExcerpt.substring(0, maxLength);
     const lastSpace = truncated.lastIndexOf(' ');
 
     if (lastSpace > maxLength * 0.8) {

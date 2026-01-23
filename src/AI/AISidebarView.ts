@@ -24,6 +24,9 @@ export class AISidebarView extends ItemView {
   private lastSuggestions: SearchResult[] = [];
   private lastActiveEditor: any = null;
   private lastAnalyzedContent: string = '';
+  private isUpdating: boolean = false;
+  private pendingUpdateAbort: AbortController | null = null;
+
 
   constructor(
     leaf: WorkspaceLeaf,
@@ -258,13 +261,20 @@ export class AISidebarView extends ItemView {
       clearTimeout(this.updateTimeout);
     }
 
+    // ✅ Aumenta il debounce time da 2s a 3s per dare più tempo
     this.updateTimeout = setTimeout(() => {
       Logger.log('⏰ [AISidebarView] Update scheduled - executing now');
       this.updateSuggestions();
-    }, 2000);
+    }, 3000);
   }
 
   private async updateSuggestions(): Promise<void> {
+
+    if (this.isUpdating) {
+      Logger.log('⏭️ [AISidebarView] Already updating, skipping...');
+      return;
+    }
+
     if (!this.aiService.isReady()) {
       this.showPlaceholder('⚙️ AI model loading...');
       return;
@@ -295,6 +305,9 @@ export class AISidebarView extends ItemView {
     }
 
     try {
+      // ✅ LOCK
+      this.isUpdating = true;
+
       const hadSuggestions = this.lastSuggestions.length > 0;
 
       if (!hadSuggestions) {
@@ -304,10 +317,9 @@ export class AISidebarView extends ItemView {
       const content = await this.app.vault.cachedRead(this.currentFile);
       Logger.log('✅ [AISidebarView] Content loaded -> length is:', content.length);
 
-
       if (content.length < this.settings.aiMinTextLength) {
         this.showPlaceholder(`Write more content (min ${this.settings.aiMinTextLength} characters)...`);
-        this.lastAnalyzedContent = ''; // Reset quando sotto il minimo
+        this.lastAnalyzedContent = '';
         return;
       }
 
@@ -342,7 +354,6 @@ export class AISidebarView extends ItemView {
         return;
       }
 
-
       this.lastAnalyzedContent = content;
       this.lastSuggestions = similar;
       this.renderSuggestionsList(similar);
@@ -352,6 +363,9 @@ export class AISidebarView extends ItemView {
     } catch (err) {
       Logger.error('❌ [AISidebarView] Update error:', err);
       this.showPlaceholder('❌ Error analyzing content');
+    } finally {
+      // ✅ UNLOCK 
+      this.isUpdating = false;
     }
   }
 
@@ -360,6 +374,7 @@ export class AISidebarView extends ItemView {
     this.lastActiveEditor = null;
     this.lastSuggestions = [];
     this.lastAnalyzedContent = '';
+    this.isUpdating = false; // ✅ Reset flag
   }
 
 
